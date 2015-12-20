@@ -1,4 +1,4 @@
-package com.example.famancil.r_r;
+package com.example.famancil.myapplication;
 
 import org.junit.Test;
 

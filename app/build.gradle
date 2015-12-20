@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.example.famancil.r_r"
+        applicationId "com.example.famancil.myapplication"
         minSdkVersion 9
         targetSdkVersion 23
         versionCode 1
