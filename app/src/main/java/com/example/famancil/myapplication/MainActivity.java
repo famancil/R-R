@@ -1,6 +1,9 @@
 package com.example.famancil.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,38 +18,95 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView text;
-    Button boton1,boton2,boton3;
-    ImageView image;
-    EditText edit,act,grade;
-    DatabaseHelper myDb;
+public class MainActivity extends AppCompatActivity {
+
+    DatabaseHelper myDB;
+    SQLiteDatabase db;
+    EditText edit_activity,edit_surname,edit_grade;
+    Button btn_addData,btn_viewdata,btn_reset;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        text=(TextView)findViewById(R.id.textView);
-        boton1=(Button)findViewById(R.id.button);
-        boton2=(Button)findViewById(R.id.button2);
-        boton3=(Button)findViewById(R.id.button3);
-        //image=(ImageView)findViewById(R.id.imageView);
-        //edit= (EditText)findViewById(R.id.editText);
-        act= (EditText)findViewById(R.id.editText_activity);
-        grade = (EditText)findViewById(R.id.editText_grade);
-        myDb=new DatabaseHelper(this);
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-        boton1.setOnClickListener(this);
-        boton2.setOnClickListener(this);
-        boton3.setOnClickListener(this);
+        myDB =new DatabaseHelper(this);
+
+        edit_activity=(EditText)findViewById(R.id.editActivity);
+        //edit_surname=(EditText)findViewById(R.id.editSurname);
+        edit_grade=(EditText)findViewById(R.id.editGrades);
+        btn_addData=(Button)findViewById(R.id.btnAdd);
+        btn_viewdata= (Button)findViewById(R.id.button_viewall);
+        btn_reset=(Button)findViewById(R.id.button_reset);
+        addData();
+        viewData();
+        dropTable();
+        //myDB =new DatabaseHelper(this);
+    }
+    public void viewData(){
+        btn_viewdata.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = myDB.getAllData();
+                        if (res.getCount() == 0) {
+                            showMessage("Error", "Nada Encontrado");
+                            return;
+                        }
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("Id :" + res.getString(0) + "\n");
+                            buffer.append("Activity :" + res.getString(1) + "\n");
+                            buffer.append("Grade :" + res.getString(2) + "\n");
+                        }
+                        showMessage("Data", buffer.toString());
+                    }
+                }
+        );
+    }
+    public void dropTable(){
+        btn_reset.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        // db.delete(String tableName, String whereClause, String[] whereArgs);
+                        // If whereClause is null, it will delete all rows.
+                        SQLiteDatabase db = myDB.getWritableDatabase(); //get database
+                        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + myDB.TABLE_NAME + "'");
+                        db.execSQL("DELETE FROM " + myDB.TABLE_NAME); //delete all rows in a table
+                        db.close();
+                        //db.delete(DatabaseHelper.TAB, null, null);
+                    }
+                        /*if (res.getCount() == 0) {
+                            showMessage("Error", "Nada Encontrado");
+                            return;
+                        }
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("Id :" + res.getString(0) + "\n");
+                            buffer.append("Activity :" + res.getString(1) + "\n");
+                            buffer.append("Grade :" + res.getString(2) + "\n");
+                        }
+                        showMessage("Data", buffer.toString());
+                    }*/
+                }
+        );
+    }
+    public void addData(){
+        btn_addData.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isInserted = myDB.insertData(edit_activity.getText().toString(),
+                                edit_grade.getText().toString());
+                        if (isInserted=true)
+                            Toast.makeText(MainActivity.this,"Data inserted",Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MainActivity.this,"Data not inserted",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 
     @Override
@@ -58,40 +118,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.button:
-                boolean isInserted = myDb.insertData(act.getText().toString(),
-                        grade.getText().toString());
-                if (isInserted=true)
-                    Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(MainActivity.this,"Data not inserted",Toast.LENGTH_LONG).show();
-                break;
-            case R.id.button2:
-                image.setImageResource((R.mipmap.ic_launcher2));
-                break;
-            case R.id.button3:
-                Intent intent=new Intent(this,Main2Activity.class);
-                String dato=edit.getText().toString();
-                intent.putExtra("DATO",dato);
-                startActivity(intent);
-            default:
-                break;
-        }
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 }
+

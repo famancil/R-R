@@ -1,6 +1,8 @@
 package com.example.famancil.myapplication;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,7 +17,7 @@ import android.widget.Toast;
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     CheckBox checkR,checkA,checkAm;
     TextView texto;
-    Button boton;
+    Button boton,button_ver;
     DatabaseHelper myDb;
 
     @Override
@@ -28,6 +30,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         checkA=(CheckBox)findViewById(R.id.checkBox2);
         checkAm=(CheckBox)findViewById(R.id.checkBox3);
         boton=(Button)findViewById(R.id.button4);
+        button_ver=(Button)findViewById(R.id.button_viewall);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent intent= getIntent();
@@ -38,6 +41,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             texto.setText(cadena);
         }
         boton.setOnClickListener(this);
+        button_ver.setOnClickListener(this);
         /*/FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,12 +55,34 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        StringBuffer result= new StringBuffer();
+        /*StringBuffer result= new StringBuffer();
         result.append(" 1 Estrella: ").append((checkR.isChecked()));
         result.append(" 2 Estrellas: ").append((checkA.isChecked()));
         result.append(" 3 Estrellas: ").append((checkAm.isChecked()));
-
-        Toast.makeText(Main2Activity.this,result.toString(),Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(Main2Activity.this,result.toString(),Toast.LENGTH_SHORT).show();*/
+        switch(v.getId()){
+            case R.id.button_viewall:
+                Cursor res = myDb.getAllData();
+                if(res.getCount()==0){
+                    showMessage("Error","Nada Encontrado");
+                    return;
+                }
+                StringBuffer buffer = new StringBuffer();
+                while(res.moveToNext()){
+                    buffer.append("Id :"+ res.getString(0)+"\n");
+                    buffer.append("Activity :"+ res.getString(1)+"\n");
+                    buffer.append("Grade :"+ res.getString(2)+"\n");
+                }
+                showMessage("Data",buffer.toString());
+            default:
+                break;
+        }
+    }
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 }
