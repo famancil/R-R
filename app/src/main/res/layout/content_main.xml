@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ingresar Prioridad"
+        android:text="Ingresar Actividad"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -25,9 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Activity"
+        android:text="Name"
         android:id="@+id/textView3"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="101dp"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Grade"
+        android:text="OK"
         android:id="@+id/textView2"
         android:layout_marginTop="65dp"
         android:layout_below="@+id/textView3"
@@ -46,7 +46,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editActivity"
+        android:id="@+id/textView6"
         android:layout_alignTop="@+id/textView3"
         android:layout_alignRight="@+id/textView"
         android:layout_alignEnd="@+id/textView"
@@ -56,21 +56,21 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editGrades"
+        android:id="@+id/editOk"
         android:layout_above="@+id/btnAdd"
         android:layout_toRightOf="@+id/btnAdd"
-        android:layout_alignRight="@+id/editActivity"
-        android:layout_alignEnd="@+id/editActivity" />
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Data"
         android:id="@+id/btnAdd"
+        android:layout_marginTop="84dp"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -88,5 +88,67 @@
         android:id="@+id/button_reset"
         android:layout_alignTop="@+id/button_viewall"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Activity"
+        android:id="@+id/button_delete"
+        android:layout_alignTop="@+id/button_act"
+        android:layout_alignLeft="@+id/button_reset"
+        android:layout_alignStart="@+id/button_reset"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Id"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView"
+        android:layout_toLeftOf="@+id/button_delete"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editId"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_alignRight="@+id/textView6"
+        android:layout_alignEnd="@+id/textView6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="FINAL"
+        android:id="@+id/textView5"
+        android:layout_alignBottom="@+id/editFinal"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editFinal"
+        android:layout_below="@+id/editOk"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_alignLeft="@+id/editOk"
+        android:layout_alignStart="@+id/editOk" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nueva Activity"
+        android:id="@+id/button_act"
+        android:layout_below="@+id/btnAdd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

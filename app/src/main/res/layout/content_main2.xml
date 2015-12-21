@@ -22,54 +22,100 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:id="@+id/button4"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_toEndOf="@+id/textView3" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1 Estrella"
-        android:id="@+id/checkBox"
-        android:layout_below="@+id/textView3"
+        android:text="Add Priority"
+        android:id="@+id/button_addprio"
+        android:layout_marginTop="58dp"
+        android:layout_below="@+id/editGrade"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="32dp"
-        android:checked="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2 Estrellas"
-        android:id="@+id/checkBox2"
-        android:layout_below="@+id/checkBox"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp"
-        android:checked="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3 Estrellas"
-        android:id="@+id/checkBox3"
-        android:layout_below="@+id/checkBox2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="31dp"
-        android:checked="false" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ViewAll"
         android:id="@+id/button_viewall"
-        android:layout_alignTop="@+id/button4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="41dp"
-        android:layout_marginEnd="41dp" />
+        android:layout_alignTop="@+id/button_find"
+        android:layout_toRightOf="@+id/textView6"
+        android:layout_toEndOf="@+id/textView6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Ingresar Prioridad"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Id"
+        android:id="@+id/textView7"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="27dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Grade"
+        android:id="@+id/textView9"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/editNameAct"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editIdAct"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_toLeftOf="@+id/button_viewall"
+        android:layout_toStartOf="@+id/button_viewall" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editNameAct"
+        android:layout_alignTop="@+id/textView8"
+        android:layout_alignLeft="@+id/editIdAct"
+        android:layout_alignStart="@+id/editIdAct"
+        android:layout_toLeftOf="@+id/button_viewall"
+        android:layout_toStartOf="@+id/button_viewall" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editGrade"
+        android:layout_alignTop="@+id/textView9"
+        android:layout_alignLeft="@+id/editNameAct"
+        android:layout_alignStart="@+id/editNameAct"
+        android:layout_alignRight="@+id/editNameAct"
+        android:layout_alignEnd="@+id/editNameAct" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Activity"
+        android:id="@+id/button_find"
+        android:layout_alignTop="@+id/button_addprio"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
