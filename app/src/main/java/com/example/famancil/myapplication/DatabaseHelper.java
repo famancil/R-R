@@ -10,10 +10,10 @@ import android.util.Log;
 /**
  * Created by famancil on 20-12-15.
  */
-public class DatabaseHelper extends SQLiteOpenHelper{
-    private static DatabaseHelper sInstance;
+public class DataBaseHelper extends SQLiteOpenHelper{
+    private static DataBaseHelper sInstance;
 
-    private static final String TAG="DatabaseHelper";
+    private static final String TAG="DataBaseHelper";
     private static final String DATABASE_NAME = "RRB.db";
 
     //Tabla Actividad
@@ -42,19 +42,25 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             COLUMN_PRIORITY_ACTIVITY_ID + " INTEGER NOT NULL"
             + ")";
 
-    private DatabaseHelper(Context context) {
+    private DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null,1);
         SQLiteDatabase db = this.getWritableDatabase();
         //context.deleteDatabase(DATABASE_NAME);
     }
 
-    public static synchronized DatabaseHelper getInstance(Context context) {
+    //Constructor Martín, a solo para no generar conflicto.
+    //TODO arreglar la forma en que está los constructores.
+    public DataBaseHelper(Context context, int a) {
+        super(context, Cons.DATABASE_NAME, null, 3);
+    }
+
+    public static synchronized DataBaseHelper getInstance(Context context) {
 
         // Use the application context, which will ensure that you
         // don't accidentally leak an Activity's context.
         // See this article for more information: http://bit.ly/6LRzfx
         if (sInstance == null) {
-            sInstance = new DatabaseHelper(context.getApplicationContext());
+            sInstance = new DataBaseHelper(context.getApplicationContext());
         }
         return sInstance;
     }
@@ -63,6 +69,40 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_String_CREATE_TABLE_ACTIVITY);
         db.execSQL(SQL_String_CREATE_TABLE_PRIORITY);
+
+        //Creación Tablas Martín.
+        db.execSQL("CREATE TABLE " + Cons.USUARIO + " ( " +
+                Cons.USUARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Cons.NOMBRE_USUARIO + " INTEGER, " +
+                Cons.EMAIL + " TEXT, " +
+                Cons.UNIVERSIDAD + " TEXT, " +
+                Cons.ESTADISTICAS_USUARIO + " INTEGER) ");
+        db.execSQL("CREATE TABLE " + Cons.HORARIO + " ( " +
+                Cons.HORARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Cons.ACTIVIDAD_ID_HORARIO + " INTEGER, " +
+                Cons.DIA + " INTEGER, " +
+                Cons.FECHA + " DATE, " +
+                Cons.DESCRIPCION + " TEXT, " +
+                Cons.USUARIO_ID_HORARIO + " INTEGER, "  +
+                "FOREIGN KEY ("+ Cons.USUARIO_ID_HORARIO + ") REFERENCES " + Cons.USUARIO +" ( " + Cons.USUARIO_ID + " ));");
+        db.execSQL("CREATE TABLE " + Cons.ACTIVIDAD + " (" +
+                Cons.ACTIVIDAD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Cons.NOMBRE_ACTIVIDAD + " TEXT, " +
+                Cons.INICIO + " TEXT, " +
+                Cons.TERMINO + " TEXT, " +
+                Cons.CUMPLIDO + " NUMERIC, " +
+                Cons.INVARIABLE + " NUMERIC); ");
+        db.execSQL("CREATE TABLE " + Cons.PRIORIDAD + " ( " +
+                Cons.PRIORIDAD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Cons.ACTIVIDAD_ID_PRIORIDAD + " INTEGER, " +
+                Cons.GRADO + " INTEGER, " +
+                "FOREIGN KEY ("+ Cons.ACTIVIDAD_ID_PRIORIDAD + ") REFERENCES " + Cons.ACTIVIDAD +"(" + Cons.ACTIVIDAD_ID + "));");
+        db.execSQL("CREATE TABLE " + Cons.ACTIVIDADHORARIO + " ( " +
+                Cons.HORARIO_ID_ACTIVIDADHORARIO + " INTEGER NOT NULL, " +
+                Cons.ACTIVIDAD_ID_ACTIVIDADHORARIO + " INTEGER NOT NULL, " +
+                "PRIMARY KEY (" +Cons.HORARIO_ID_ACTIVIDADHORARIO+ ", " + Cons.ACTIVIDAD_ID_ACTIVIDADHORARIO+ ") " +
+                "FOREIGN KEY ("+ Cons.HORARIO_ID_ACTIVIDADHORARIO + ") REFERENCES " + Cons.HORARIO +"(" + Cons.HORARIO_ID + ") " +
+                "FOREIGN KEY ("+ Cons.ACTIVIDAD_ID_ACTIVIDADHORARIO + ") REFERENCES " + Cons.ACTIVIDAD +"(" + Cons.ACTIVIDAD_ID + ")); ");
     }
 
     @Override
@@ -72,6 +112,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         // clear all data
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES );
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRIORITIES);
+
+        //Update Tablas
+        db.execSQL("DROP TABLE IF EXISTS " + Cons.USUARIO);
+        db.execSQL("DROP TABLE IF EXISTS " + Cons.HORARIO);
+        db.execSQL("DROP TABLE IF EXISTS " + Cons.ACTIVIDAD);
+        db.execSQL("DROP TABLE IF EXISTS " + Cons.PRIORIDAD);
+        db.execSQL("DROP TABLE IF EXISTS " + Cons.ACTIVIDADHORARIO);
 
         // recreate the tables
         onCreate(db);

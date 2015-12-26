@@ -20,7 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    DatabaseHelper myDB;
+    DataBaseHelper myDB;
     SQLiteDatabase db;
     EditText edit_name, edit_id, edit_ok, edit_final;
     Button btn_addData, btn_viewdata, btn_reset, btn_delete, btn_newact;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myDB = DatabaseHelper.getInstance(this);
+        myDB = DataBaseHelper.getInstance(this);
 
         edit_id = (EditText) findViewById(R.id.editId);
         edit_name = (EditText) findViewById(R.id.textView6);

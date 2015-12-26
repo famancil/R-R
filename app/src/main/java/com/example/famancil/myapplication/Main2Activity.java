@@ -17,7 +17,7 @@ public class Main2Activity extends AppCompatActivity{
     CheckBox checkR,checkA,checkAm;
     TextView texto;
     Button boton_add,button_ver,btn_find;
-    DatabaseHelper myDB;
+    DataBaseHelper myDB;
     EditText edit_idAct,edit_nameAct,edit_grade;
 
     @Override
@@ -39,7 +39,7 @@ public class Main2Activity extends AppCompatActivity{
         setSupportActionBar(toolbar);
         Intent intent= getIntent();
         Bundle bundle= intent.getExtras();
-        myDB=DatabaseHelper.getInstance(this);
+        myDB=DataBaseHelper.getInstance(this);
         if(bundle!=null){
             String cadena=(String)bundle.get("DATO");
             texto.setText(cadena);
