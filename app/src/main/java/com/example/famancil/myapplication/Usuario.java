@@ -34,8 +34,8 @@ public class Usuario {
 
         ContentValues NuevoRegistro = new ContentValues();
         NuevoRegistro.put(Cons.NOMBRE_USUARIO, Nombre);
-        NuevoRegistro.put(Cons.UNIVERSIDAD, Universidad);
         NuevoRegistro.put(Cons.EMAIL, Email);
+        NuevoRegistro.put(Cons.UNIVERSIDAD, Universidad);
         NuevoRegistro.put(Cons.ESTADISTICAS_USUARIO, Estadisticas);
 
         if (db.insert(Cons.USUARIO, null, NuevoRegistro) != -1) return true;

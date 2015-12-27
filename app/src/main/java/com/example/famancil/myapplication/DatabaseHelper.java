@@ -10,14 +10,14 @@ import android.util.Log;
 /**
  * Created by famancil on 20-12-15.
  */
-public class DataBaseHelper extends SQLiteOpenHelper{
+class DataBaseHelper extends SQLiteOpenHelper{
     private static DataBaseHelper sInstance;
 
     private static final String TAG="DataBaseHelper";
     private static final String DATABASE_NAME = "RRB.db";
 
     //Tabla Actividad
-    private static final String TABLE_ACTIVITIES = "activities";
+    /*private static final String TABLE_ACTIVITIES = "activities";
     private static final String COLUMN_ACTIVITY_ID = "_id";
     private static final String COLUMN_ACTIVITY_NAME = "name";
     private static final String COLUMN_ACTIVITY_OK = "ok";
@@ -40,19 +40,19 @@ public class DataBaseHelper extends SQLiteOpenHelper{
             COLUMN_PRIORITY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_PRIORITY_GRADE + " TEXT NOT NULL," +
             COLUMN_PRIORITY_ACTIVITY_ID + " INTEGER NOT NULL"
-            + ")";
+            + ")";*/
 
     private DataBaseHelper(Context context) {
-        super(context, DATABASE_NAME, null,1);
+        super(context, DATABASE_NAME, null,10);
         SQLiteDatabase db = this.getWritableDatabase();
         //context.deleteDatabase(DATABASE_NAME);
     }
 
     //Constructor Martín, a solo para no generar conflicto.
     //TODO arreglar la forma en que está los constructores.
-    public DataBaseHelper(Context context, int a) {
-        super(context, Cons.DATABASE_NAME, null, 3);
-    }
+    /*public DataBaseHelper(Context context, int a) {
+        super(context, Cons.DATABASE_NAME, null, 4);
+    }*/
 
     public static synchronized DataBaseHelper getInstance(Context context) {
 
@@ -67,8 +67,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_String_CREATE_TABLE_ACTIVITY);
-        db.execSQL(SQL_String_CREATE_TABLE_PRIORITY);
+        //db.execSQL(SQL_String_CREATE_TABLE_ACTIVITY);
+        //db.execSQL(SQL_String_CREATE_TABLE_PRIORITY);
 
         //Creación Tablas Martín.
         db.execSQL("CREATE TABLE " + Cons.USUARIO + " ( " +
@@ -87,15 +87,15 @@ public class DataBaseHelper extends SQLiteOpenHelper{
                 "FOREIGN KEY ("+ Cons.USUARIO_ID_HORARIO + ") REFERENCES " + Cons.USUARIO +" ( " + Cons.USUARIO_ID + " ));");
         db.execSQL("CREATE TABLE " + Cons.ACTIVIDAD + " (" +
                 Cons.ACTIVIDAD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                Cons.NOMBRE_ACTIVIDAD + " TEXT, " +
-                Cons.INICIO + " TEXT, " +
-                Cons.TERMINO + " TEXT, " +
+                Cons.NOMBRE_ACTIVIDAD + " TEXT NOT NULL UNIQUE, " +
+                Cons.INICIO + " TEXT NOT NULL, " +
+                Cons.TERMINO + " TEXT NOT NULL, " +
                 Cons.CUMPLIDO + " NUMERIC, " +
                 Cons.INVARIABLE + " NUMERIC); ");
         db.execSQL("CREATE TABLE " + Cons.PRIORIDAD + " ( " +
                 Cons.PRIORIDAD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                Cons.ACTIVIDAD_ID_PRIORIDAD + " INTEGER, " +
-                Cons.GRADO + " INTEGER, " +
+                Cons.ACTIVIDAD_ID_PRIORIDAD + " INTEGER NOT NULL UNIQUE, " +
+                Cons.GRADO + " FLOAT NOT NULL, " +
                 "FOREIGN KEY ("+ Cons.ACTIVIDAD_ID_PRIORIDAD + ") REFERENCES " + Cons.ACTIVIDAD +"(" + Cons.ACTIVIDAD_ID + "));");
         db.execSQL("CREATE TABLE " + Cons.ACTIVIDADHORARIO + " ( " +
                 Cons.HORARIO_ID_ACTIVIDADHORARIO + " INTEGER NOT NULL, " +
@@ -110,8 +110,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         Log.w(TAG,
                 "Upgrading the database from version " + oldVersion + " to " + newVersion);
         // clear all data
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES );
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRIORITIES);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES );
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRIORITIES);
 
         //Update Tablas
         db.execSQL("DROP TABLE IF EXISTS " + Cons.USUARIO);
@@ -123,7 +123,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         // recreate the tables
         onCreate(db);
     }
-    public boolean insertAct(String name,String ok, String finale)
+    /*public boolean insertAct(String name,String ok, String finale)
     {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -140,39 +140,39 @@ public class DataBaseHelper extends SQLiteOpenHelper{
     {
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_PRIORITY_GRADE, grade);
-        contentValues.put(COLUMN_PRIORITY_ACTIVITY_ID, activity_id);
-        long result = db.insert(TABLE_PRIORITIES,null,contentValues);
+        contentValues.put(Cons.GRADO, grade);
+        contentValues.put(Cons.ACTIVIDAD_ID_PRIORIDAD, activity_id);
+        long result = db.insert(Cons.PRIORIDAD,null,contentValues);
         if(result==-1)
             return false;
         else
             return true;
-    }
-    public Cursor getAllDataAct(){
+    }*/
+    /*public Cursor getAllDataAct(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_ACTIVITIES,null);
         return res;
     }
     public Cursor getAllDataPrio(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_PRIORITIES,null);
+        Cursor res = db.rawQuery("select * from "+Cons.PRIORIDAD,null);
         return res;
     }
     public Integer deleteData(String id){
         SQLiteDatabase db=this.getWritableDatabase();
         return db.delete(TABLE_ACTIVITIES,"ID = ?",new String[]{id});
-    }
+    }*/
     public void dropTable(){
         SQLiteDatabase db = sInstance.getWritableDatabase(); //get database
-        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + sInstance.TABLE_ACTIVITIES + "'");
-        db.execSQL("DELETE FROM " + sInstance.TABLE_ACTIVITIES); //delete all rows in a table
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + Cons.ACTIVIDAD + "'");
+        db.execSQL("DELETE FROM " + Cons.ACTIVIDAD); //delete all rows in a table
         db.close();
     }
-    public Cursor findData(String id){
+    /*public Cursor findData(String id){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from " + TABLE_ACTIVITIES + " where " + COLUMN_PRIORITY_ID + "='" + id + "'" , null);
         return res;
-    }
+    }*/
 
 
 }

@@ -22,7 +22,7 @@ public class DatosPersonales extends AppCompatActivity {
         RadioButton Diario, Semanal, Mensual;
         Usuario Usuario = new Usuario();
 
-        DataBaseHelper = new DataBaseHelper(this, 1);
+        DataBaseHelper = DataBaseHelper.getInstance(this);                                   //new DataBaseHelper(this, 1);
         Nombre = (EditText) findViewById(R.id.Nombre);
         Email = (EditText) findViewById(R.id.Email);
         Universidad = (EditText) findViewById(R.id.Universidad);
@@ -56,7 +56,7 @@ public class DatosPersonales extends AppCompatActivity {
         EditText Nombre, Email, Universidad;
         RadioGroup RadioGroup;
         int Estadisticas = -1;
-        DataBaseHelper = new DataBaseHelper(this, 1);
+        DataBaseHelper = DataBaseHelper.getInstance(this);
         Nombre = (EditText) findViewById(R.id.Nombre);
         Email = (EditText) findViewById(R.id.Email);
         Universidad = (EditText) findViewById(R.id.Universidad);

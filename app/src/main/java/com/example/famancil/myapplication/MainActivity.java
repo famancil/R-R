@@ -22,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     DataBaseHelper myDB;
     SQLiteDatabase db;
-    EditText edit_name, edit_id, edit_ok, edit_final;
+    EditText edit_name, edit_id, edit_inicio, edit_termino;
     Button btn_addData, btn_viewdata, btn_reset, btn_delete, btn_newact;
+    Actividad actividad;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         myDB = DataBaseHelper.getInstance(this);
 
         edit_id = (EditText) findViewById(R.id.editId);
-        edit_name = (EditText) findViewById(R.id.textView6);
-        edit_ok = (EditText) findViewById(R.id.editOk);
-        edit_final = (EditText) findViewById(R.id.editFinal);
+        edit_name = (EditText) findViewById(R.id.editNombre);
+        edit_inicio = (EditText) findViewById(R.id.editInicio);
+        edit_termino = (EditText) findViewById(R.id.editTermino);
         btn_addData = (Button) findViewById(R.id.btnAdd);
         btn_viewdata = (Button) findViewById(R.id.button_viewall);
         btn_reset = (Button) findViewById(R.id.button_reset);
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         viewData();
         dropTable();
         DeleteData();
-        NewActivity();
+        VerPrioridad();
         //myDB =new DatabaseHelper(this);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -62,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Integer deletedRows = myDB.deleteData(edit_id.getText().toString());
+                        Integer deletedRows = actividad.BorrarActividad(myDB, edit_id.getText().toString());
                         if (deletedRows > 0)
-                            Toast.makeText(MainActivity.this, "Data Deleted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Actividad Borrada", Toast.LENGTH_LONG).show();
                         else
-                            Toast.makeText(MainActivity.this, "Data not deleted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Actividad no Borrada", Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -77,19 +78,21 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res = myDB.getAllDataAct();
+                        Cursor res = actividad.BuscarTodosActividades(myDB);
                         if (res.getCount() == 0) {
-                            showMessage("Error", "Nada Encontrado");
+                            showMessage("Aviso", "No hay actividades");
                             return;
                         }
                         StringBuffer buffer = new StringBuffer();
                         while (res.moveToNext()) {
                             buffer.append("Id :" + res.getString(0) + "\n");
-                            buffer.append("Name :" + res.getString(1) + "\n");
-                            buffer.append("Ok :" + res.getString(2) + "\n");
-                            buffer.append("Final :" + res.getString(3) + "\n");
+                            buffer.append("Nombre :" + res.getString(1) + "\n");
+                            buffer.append("Inicio :" + res.getString(2) + "\n");
+                            buffer.append("Termino :" + res.getString(3) + "\n");
+                            buffer.append("Cumplido :" + res.getString(4) + "\n");
+                            buffer.append("Invariable :" + res.getString(5) + "\n");
                         }
-                        showMessage("Data", buffer.toString());
+                        showMessage("Actividad", buffer.toString());
                     }
                 }
         );
@@ -127,19 +130,22 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDB.insertAct(edit_name.getText().toString(),
-                                edit_ok.getText().toString(),
-                                edit_final.getText().toString());
-                        if (isInserted = true)
-                            Toast.makeText(MainActivity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                        boolean isInserted = actividad.InsertarActividad(myDB, edit_name.getText().toString(),
+                                edit_inicio.getText().toString(),
+                                edit_termino.getText().toString(), false, false);
+                        if (isInserted == true)
+                            Toast.makeText(MainActivity.this, "Actividad Ingresada", Toast.LENGTH_LONG).show();
                         else
-                            Toast.makeText(MainActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Actividad Rechazada", Toast.LENGTH_LONG).show();
+                        edit_name.setText("");
+                        edit_inicio.setText("");
+                        edit_termino.setText("");
                     }
                 }
         );
     }
 
-    public void NewActivity() {
+    public void VerPrioridad() {
         btn_newact.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -178,45 +184,11 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage(Message);
         builder.show();
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.famancil.myapplication/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
+    public void ClickButtonDatosPersonales(View view)
+    {
+        Intent intent = new Intent(this, DatosPersonales.class);
+        startActivity(intent);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
-                Uri.parse("android-app://com.example.famancil.myapplication/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
-    }
 }
 
