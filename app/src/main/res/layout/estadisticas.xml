@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Estadisticas"
+    android:orientation="vertical"
+    android:background="#828282">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#404040">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:text="Usuario"
+            android:id="@+id/DatosPersonales"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:clickable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:text="Horario"
+            android:id="@+id/Horario"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:clickable="true"
+            android:onClick="ClickButtonHorario" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:text="Prioridad"
+            android:id="@+id/Prioridad"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:textAlignment="center"
+            android:clickable="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMediumInverse"
+            android:text="Estadisticas"
+            android:id="@+id/Estadisticas"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textAlignment="center"
+            android:clickable="true"
+            android:background="#999999" />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generar"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="400dp"
+        android:onClick="GenerarEstadistica"
+        android:layout_weight="1"/>
+
+</LinearLayout>
+

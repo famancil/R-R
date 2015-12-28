@@ -163,4 +163,16 @@ public class Main2Activity extends AppCompatActivity{
         Intent intent = new Intent(this, DatosPersonales.class);
         startActivity(intent);
     }
+
+    public void ClickButtonDatosHorario(View view)
+    {
+        Intent intent = new Intent(this, HorarioDiario.class);
+        startActivity(intent);
+    }
+
+    public void ClickButtonEstadisticas(View view)
+    {
+        Intent intent = new Intent(this, Estadisticas.class);
+        startActivity(intent);
+    }
 }
