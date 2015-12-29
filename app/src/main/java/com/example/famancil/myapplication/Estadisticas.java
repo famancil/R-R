@@ -6,12 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 
-/**
- * Created by Seba on 28-12-2015.
- */
 public class Estadisticas extends AppCompatActivity {
 
-}
     private DataBaseHelper DataBaseHelper;
     private Usuario User;
 

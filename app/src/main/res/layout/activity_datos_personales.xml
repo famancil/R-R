@@ -68,7 +68,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
             android:textAlignment="center"
-            android:clickable="true" />
+            android:clickable="true"
+            android:onClick="ClickButtonEstadisticasDatosPersonales" />
     </LinearLayout>
 
     <TextView
@@ -98,7 +99,7 @@
         android:layout_weight="1"/>
 
     <EditText
-        android:layout_width="340dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
@@ -106,7 +107,8 @@
         android:background="#ffffff"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginRight="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -122,7 +124,7 @@
         android:layout_weight="1"/>
 
     <EditText
-        android:layout_width="340dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
@@ -130,7 +132,8 @@
         android:background="#ffffff"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginRight="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -146,7 +149,7 @@
         android:layout_weight="1"/>
 
     <EditText
-        android:layout_width="340dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
@@ -154,7 +157,8 @@
         android:background="#ffffff"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginRight="20dp" />
 
     <RadioGroup
         android:layout_width="wrap_content"

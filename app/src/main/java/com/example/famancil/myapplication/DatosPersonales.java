@@ -1,6 +1,8 @@
 package com.example.famancil.myapplication;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,9 +10,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.io.File;
+
 public class DatosPersonales extends AppCompatActivity {
 
-    private DataBaseHelper DataBaseHelper;
+    private static DataBaseHelper DataBaseHelper;
     private Usuario User;
     private static boolean Ingreso = false;
 
@@ -21,8 +25,9 @@ public class DatosPersonales extends AppCompatActivity {
         EditText Nombre, Email, Universidad;
         RadioButton Diario, Semanal, Mensual;
         Usuario Usuario = new Usuario();
+        //this.getApplicationContext().deleteDatabase("RRB.db");
 
-        DataBaseHelper = DataBaseHelper.getInstance(this);                                   //new DataBaseHelper(this, 1);
+        DataBaseHelper = DataBaseHelper.getInstance(this);              //new DataBaseHelper(this, 1);
         Nombre = (EditText) findViewById(R.id.Nombre);
         Email = (EditText) findViewById(R.id.Email);
         Universidad = (EditText) findViewById(R.id.Universidad);
@@ -31,7 +36,7 @@ public class DatosPersonales extends AppCompatActivity {
         Mensual = (RadioButton) findViewById(R.id.Mensual);
         User = Usuario.ConsultarUsuario(DataBaseHelper);
 
-        if(User != null && (User.ExisteUsuario(DataBaseHelper) && !Ingreso))
+        if(User != null && !Ingreso)
         {
             Intent intent = new Intent(this, HorarioDiario.class);
             Ingreso = true;
@@ -69,15 +74,19 @@ public class DatosPersonales extends AppCompatActivity {
 
         if (User == null)
         {
-            Usuario Usuario = new Usuario(Nombre.getText().toString(), Email.getText().toString(), Universidad.getText().toString(), Estadisticas);
+            Usuario Usuario = new Usuario(Nombre.getText().toString(), Universidad.getText().toString(), Email.getText().toString(), Estadisticas);
             if (Usuario.InsertarUsuario(DataBaseHelper)) {
-                System.out.println("Se ingresó bien el usuario");
-            } else System.out.println("Falló en ingresarse el usuario");
+                Snackbar.make(Nombre, "Se ha ingresado bien el usuario", Snackbar.LENGTH_LONG).show();
+                Intent intent = new Intent(this, HorarioDiario.class);
+                Ingreso = true;
+                startActivity(intent);
+            } else Snackbar.make(Nombre, "Falló en ingresar al usuario", Snackbar.LENGTH_LONG).show();
         }
-        else
-        {
-            Usuario Usuario = new Usuario(Nombre.getText().toString(), Email.getText().toString(), Universidad.getText().toString(), Estadisticas);
-            Usuario.ActualizarUsuario(DataBaseHelper);
+        else {
+            Usuario Usuario = new Usuario(Nombre.getText().toString(), Universidad.getText().toString(), Email.getText().toString(), Estadisticas);
+            if (Usuario.ActualizarUsuario(DataBaseHelper) == 0)
+                Snackbar.make(Nombre, "No hay cambios", Snackbar.LENGTH_LONG).show();
+            else Snackbar.make(Nombre, "Se ha actualizado el usuario", Snackbar.LENGTH_LONG).show();
         }
         //User.EliminarUsuario(DataBaseHelper);
     }
@@ -88,7 +97,7 @@ public class DatosPersonales extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ClickButtonEstadisticas(View view)
+    public void ClickButtonEstadisticasDatosPersonales(View view)
     {
         Intent intent = new Intent(this, Estadisticas.class);
         startActivity(intent);

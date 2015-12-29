@@ -7,9 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Created by famancil on 20-12-15.
- */
 class DataBaseHelper extends SQLiteOpenHelper{
     private static DataBaseHelper sInstance;
 
@@ -49,7 +46,6 @@ class DataBaseHelper extends SQLiteOpenHelper{
     }
 
     //Constructor Martín, a solo para no generar conflicto.
-    //TODO arreglar la forma en que está los constructores.
     /*public DataBaseHelper(Context context, int a) {
         super(context, Cons.DATABASE_NAME, null, 4);
     }*/

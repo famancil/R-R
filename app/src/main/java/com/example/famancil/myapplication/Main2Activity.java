@@ -170,7 +170,7 @@ public class Main2Activity extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void ClickButtonEstadisticas(View view)
+    public void ClickButtonEstadisticasActivity2(View view)
     {
         Intent intent = new Intent(this, Estadisticas.class);
         startActivity(intent);

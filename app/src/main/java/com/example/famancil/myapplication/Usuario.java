@@ -38,37 +38,51 @@ public class Usuario {
         NuevoRegistro.put(Cons.UNIVERSIDAD, Universidad);
         NuevoRegistro.put(Cons.ESTADISTICAS_USUARIO, Estadisticas);
 
-        if (db.insert(Cons.USUARIO, null, NuevoRegistro) != -1) return true;
-        else return false;
+        return db.insert(Cons.USUARIO, null, NuevoRegistro) != -1;
     }
 
     public Usuario ConsultarUsuario(DataBaseHelper DBUsuario) {
-        SQLiteDatabase db = DBUsuario.getReadableDatabase();
-        String[] campos = new String[]{Cons.USUARIO_ID, Cons.NOMBRE_USUARIO, Cons.UNIVERSIDAD, Cons.EMAIL, Cons.ESTADISTICAS_USUARIO};
 
-        Cursor User = db.query(Cons.USUARIO, campos, null, null, null, null, null);
+        int id = 0, estadisticas = 0;
+        String nombre = null, email = null, universidad = null;
+        SQLiteDatabase db = DBUsuario.getReadableDatabase();
+        String[] campos = new String[]{Cons.USUARIO_ID, Cons.NOMBRE_USUARIO, Cons.EMAIL, Cons.UNIVERSIDAD, Cons.ESTADISTICAS_USUARIO};
+        String[] args = new String[]{"1"};
+
+        Cursor User = db.query(Cons.USUARIO, campos, Cons.USUARIO_ID +"=?", args, null, null, null);
 
         Usuario Usuario = null;
         if (User.moveToFirst()) {
             do {
-                Usuario = new Usuario(User.getInt(0), User.getString(1), User.getString(2), User.getString(3), User.getInt(4));
+                for (int i = 0; i < 5; i++)
+                {
+                    if(User.getColumnName(i).equals(Cons.USUARIO_ID)) id = User.getInt(i);
+                    if(User.getColumnName(i).equals(Cons.NOMBRE_USUARIO)) nombre = User.getString(i);
+                    if(User.getColumnName(i).equals(Cons.EMAIL)) email = User.getString(i);
+                    if(User.getColumnName(i).equals(Cons.UNIVERSIDAD)) universidad = User.getString(i);
+                    if(User.getColumnName(i).equals(Cons.ESTADISTICAS_USUARIO)) estadisticas = User.getInt(i);
+                    Usuario = new Usuario(id, nombre, universidad, email, estadisticas);
+                }
+
             } while (User.moveToNext());
         }
+
         return Usuario;
     }
 
-    public void ActualizarUsuario(DataBaseHelper DBUsuario)
+    public int ActualizarUsuario(DataBaseHelper DBUsuario)
     {
         SQLiteDatabase db = DBUsuario.getWritableDatabase();
+        boolean actualizar = false;
 
         Usuario User = ConsultarUsuario(DBUsuario);
-
         ContentValues valores = new ContentValues();
-        if(!Nombre.equals(User.getNombre())) valores.put(Cons.NOMBRE_USUARIO, Nombre);
-        if(!Email.equals(User.getEmail())) valores.put(Cons.EMAIL, Email);
-        if(!Universidad.equals(User.getUniversidad())) valores.put(Cons.UNIVERSIDAD, Universidad);
-        if(Estadisticas != User.getEstadisticas()) valores.put(Cons.ESTADISTICAS_USUARIO, Estadisticas);
-        db.update(Cons.USUARIO, valores, Cons.USUARIO_ID + "=" + User.getUsuarioId().toString(), null);
+        if(!Nombre.equals(User.getNombre())) { valores.put(Cons.NOMBRE_USUARIO, Nombre); actualizar = true; }
+        if(!Email.equals(User.getEmail())) { valores.put(Cons.EMAIL, Email); actualizar = true; }
+        if(!Universidad.equals(User.getUniversidad())) { valores.put(Cons.UNIVERSIDAD, Universidad); actualizar = true; }
+        if(Estadisticas != User.getEstadisticas()) { valores.put(Cons.ESTADISTICAS_USUARIO, Estadisticas); actualizar = true; }
+        if(actualizar) return  db.update(Cons.USUARIO, valores, Cons.USUARIO_ID + "=" + User.getUsuarioId().toString(), null);
+        else return 0;
     }
 
     public void EliminarUsuario(DataBaseHelper DBUsuario)
@@ -82,8 +96,7 @@ public class Usuario {
     {
         SQLiteDatabase db = DBUsuario.getReadableDatabase();
         Usuario User = ConsultarUsuario(DBUsuario);
-        if(User == null) return false;
-        else return true;
+        return User != null;
     }
 
     public Integer getUsuarioId() {  return this.UsuarioId; }

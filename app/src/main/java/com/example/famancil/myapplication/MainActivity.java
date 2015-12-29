@@ -190,5 +190,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void ClickButtonEstadisticas(View view)
+    {
+        Intent intent = new Intent(this, Estadisticas.class);
+        startActivity(intent);
+    }
+
 }
 
