@@ -45,13 +45,13 @@ public class Estadisticas extends AppCompatActivity {
                             buffer.append("Actividad :" + activity.getString(1) + "\n");
                             buffer.append("Cumplido :" + activity.getString(4) + "\n");
                             buffer.append("\n");
-                            if (activity.getString(4) != null) counter += 1;
+                            if (Integer.parseInt(activity.getString(4)) == 0) counter += 1;
                         }
                         if (counter == 0){
-                            buffer.append("No se han completado actividades");
+                            buffer.append("Se han completado todas las actividades");
                         }
                         else{
-                            buffer.append("Se han cumplido actividades");
+                            buffer.append("Actividades Completadas: \n " + (nActividades - counter) + " de " + nActividades);
                         }
                         showMessage("Estadisticas", buffer.toString());
                     }
