@@ -15,6 +15,7 @@ public class Estadisticas extends AppCompatActivity {
     DataBaseHelper dataBaseHelper;
     Button  button_ver;
     String Id;
+    int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,18 @@ public class Estadisticas extends AppCompatActivity {
                             return;
                         }
                         StringBuffer buffer = new StringBuffer();
+                        int nActividades = activity.getCount();
                         while (activity.moveToNext()) {
-                            buffer.append("Nombre :" + activity.getString(1) + "\n");
+                            buffer.append("Actividad :" + activity.getString(1) + "\n");
                             buffer.append("Cumplido :" + activity.getString(4) + "\n");
+                            buffer.append("\n");
+                            if (activity.getString(4) != null) counter += 1;
+                        }
+                        if (counter == 0){
+                            buffer.append("No se han completado actividades");
+                        }
+                        else{
+                            buffer.append("Se han cumplido actividades");
                         }
                         showMessage("Estadisticas", buffer.toString());
                     }
