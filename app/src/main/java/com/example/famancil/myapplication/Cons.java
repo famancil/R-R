@@ -18,7 +18,6 @@ public class Cons {
     //Tabla Horario
     public static final String HORARIO="Horario";
     public static final String HORARIO_ID="HorarioId";
-    public static final String ACTIVIDAD_ID_HORARIO="ActividadId";
     public static final String DIA="Dia";
     public static final String FECHA="Fecha";
     public static final String DESCRIPCION="Descripcion";

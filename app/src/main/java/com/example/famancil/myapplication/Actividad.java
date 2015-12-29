@@ -4,12 +4,35 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by famancil on 26-12-15.
- */
 public class Actividad {
 
-    public static boolean InsertarActividad(DataBaseHelper DBUsuario,String nombre,String inicio, String termino,Boolean cumplido, Boolean invariable) {
+    private Integer ActividadId;
+    private String Nombre;
+    private String Inicio;
+    private String Termino;
+    private boolean Cumplido;
+    private boolean Invariable;
+
+    public Actividad(String Nombre,String Inicio, String Termino, Boolean Cumplido, Boolean Invariable)
+    {
+        this.Nombre = Nombre;
+        this.Inicio = Inicio;
+        this.Termino = Termino;
+        this.Cumplido = Cumplido;
+        this.Invariable = Invariable;
+    }
+
+    public Actividad(Integer ActividadId, String Nombre,String Inicio, String Termino, Boolean Cumplido, Boolean Invariable)
+    {
+        this.ActividadId = ActividadId;
+        this.Nombre = Nombre;
+        this.Inicio = Inicio;
+        this.Termino = Termino;
+        this.Cumplido = Cumplido;
+        this.Invariable = Invariable;
+    }
+
+    public static boolean InsertarActividad(DataBaseHelper DBUsuario,String nombre,String inicio, String termino, Boolean cumplido, Boolean invariable) {
         SQLiteDatabase db = DBUsuario.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Cons.NOMBRE_ACTIVIDAD, nombre);
@@ -22,6 +45,18 @@ public class Actividad {
             return false;
         else
             return true;
+    }
+
+    public boolean InsertarActividad(DataBaseHelper DBActividad)
+    {
+        SQLiteDatabase db = DBActividad.getWritableDatabase();
+        ContentValues NuevoRegistro = new ContentValues();
+        NuevoRegistro.put(Cons.NOMBRE_ACTIVIDAD, Nombre);
+        NuevoRegistro.put(Cons.INICIO, Inicio);
+        NuevoRegistro.put(Cons.TERMINO, Termino);
+        NuevoRegistro.put(Cons.CUMPLIDO, Cumplido);
+        NuevoRegistro.put(Cons.INVARIABLE, Invariable);
+        return db.insert(Cons.ACTIVIDAD, null, NuevoRegistro) != -1;
     }
 
     public static Cursor BuscarActividad(DataBaseHelper DBUsuario,String id) {

@@ -99,6 +99,16 @@ public class Usuario {
         return User != null;
     }
 
+    public int ConsultarUsuarioId(DataBaseHelper DBUsuario)
+    {
+        int id = 0;
+        SQLiteDatabase db = DBUsuario.getReadableDatabase();
+        String[] campos = new String[]{Cons.USUARIO_ID};
+
+        Cursor User = db.query(Cons.USUARIO, campos, null, null, null, null, null);
+        return User.getInt(0);
+    }
+
     public Integer getUsuarioId() {  return this.UsuarioId; }
     public String getNombre() { return this.Nombre; }
     public String getUniversidad() { return this.Universidad; }
