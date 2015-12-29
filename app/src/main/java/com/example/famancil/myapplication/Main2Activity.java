@@ -15,14 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Main2Activity extends AppCompatActivity{
-    CheckBox checkR,checkA,checkAm;
+
     TextView texto,text_rating;
-    Button boton_add,button_ver,btn_find;
-    DataBaseHelper myDB;
-    EditText edit_idAct,edit_nameAct,edit_grade;
+    Button boton_add,button_ver;
+    DataBaseHelper dataBaseHelper;
+    String Id,Name;
+    EditText edit_idAct,edit_nameAct;
     private RatingBar ratingBar;
-    Actividad actividad;
-    Prioridad prioridad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,39 +29,27 @@ public class Main2Activity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         texto=(TextView)findViewById(R.id.textView3);
-        //checkR=(CheckBox)findViewById(R.id.checkBox);
-        //checkA=(CheckBox)findViewById(R.id.checkBox2);
-        //checkAm=(CheckBox)findViewById(R.id.checkBox3);
         boton_add=(Button)findViewById(R.id.button_addprio);
         button_ver=(Button)findViewById(R.id.button_viewall);
-        btn_find=(Button)findViewById(R.id.button_find);
         edit_idAct=(EditText)findViewById(R.id.editIdAct);
         edit_nameAct=(EditText)findViewById(R.id.editNameAct);
-        //edit_grade=(EditText)findViewById(R.id.editGrade);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
         Intent intent= getIntent();
-        Bundle bundle= intent.getExtras();
-        myDB=DataBaseHelper.getInstance(this);
-        if(bundle!=null){
-            String cadena=(String)bundle.get("DATO");
-            texto.setText(cadena);
+        Id = intent.getStringExtra("miembroId");
+        Name = intent.getStringExtra("miembroNombre");
+        edit_idAct.setText(Id);
+        edit_nameAct.setText(Name);
+
+        dataBaseHelper=DataBaseHelper.getInstance(this);
+        Cursor uno = Prioridad.BuscarPrioridad(dataBaseHelper, Id);
+        if (uno.moveToNext()){
+            ratingBar.setRating(Float.valueOf(uno.getString(2)));
         }
+        
         addPriority();
         viewData();
-        FindData();
         addListenerOnRatingBar();
-        //boton.setOnClickListener(this);
-        //button_ver.setOnClickListener(this);
-        /*/FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
     }
 
@@ -71,7 +58,7 @@ public class Main2Activity extends AppCompatActivity{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = prioridad.InsertarPrioridad(myDB,String.valueOf(ratingBar.getRating()),
+                        boolean isInserted = Prioridad.InsertarPrioridad(dataBaseHelper,String.valueOf(ratingBar.getRating()),
                                 edit_idAct.getText().toString());
                         if (isInserted == true)
                             Toast.makeText(Main2Activity.this, "Prioridad Aceptada", Toast.LENGTH_LONG).show();
@@ -90,7 +77,7 @@ public class Main2Activity extends AppCompatActivity{
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res = prioridad.BuscarTodasPrioridades(myDB);
+                        Cursor res = Prioridad.BuscarTodasPrioridades(dataBaseHelper);
                         if (res.getCount() == 0) {
                             showMessage("Aviso", "No hay prioridades");
                             return;
@@ -102,34 +89,6 @@ public class Main2Activity extends AppCompatActivity{
                             buffer.append("actividad_id :" + res.getString(1) + "\n");
                         }
                         showMessage("Prioridad", buffer.toString());
-                    }
-                }
-        );
-    }
-    public void FindData() {
-        btn_find.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Cursor res = actividad.BuscarActividad(myDB, edit_idAct.getText().toString());
-                        edit_idAct.setText("");
-                        edit_nameAct.setText("");
-                        if (res.getCount() == 0) {
-                            showMessage("Aviso", "No hay actividades");
-                            return;
-                        }
-                        while (res.moveToNext()) {
-                            edit_idAct.setText(res.getString(0));
-                            edit_nameAct.setText(res.getString(1));
-                        }
-                        /*StringBuffer buffer = new StringBuffer();
-                        while (res.moveToNext()) {
-                            buffer.append("Id :" + res.getString(0) + "\n");
-                            buffer.append("Name :" + res.getString(1) + "\n");
-                            buffer.append("Ok :" + res.getString(2) + "\n");
-                            buffer.append("Final :" + res.getString(3) + "\n");
-                        }
-                        showMessage("Data", buffer.toString());*/
                     }
                 }
         );

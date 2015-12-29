@@ -27,8 +27,8 @@ public class Prioridad {
         return res;
     }
 
-    public static Cursor BuscarTodasPrioridades(DataBaseHelper DBActividad) {
-        SQLiteDatabase db = DBActividad.getReadableDatabase();
+    public static Cursor BuscarTodasPrioridades(DataBaseHelper DBUsuario) {
+        SQLiteDatabase db = DBUsuario.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + Cons.PRIORIDAD, null);
         return res;
     }

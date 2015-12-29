@@ -40,7 +40,7 @@ class DataBaseHelper extends SQLiteOpenHelper{
             + ")";*/
 
     private DataBaseHelper(Context context) {
-        super(context, DATABASE_NAME, null,11);
+        super(context, Cons.DATABASE_NAME, null,5);
         SQLiteDatabase db = this.getWritableDatabase();
         //context.deleteDatabase(DATABASE_NAME);
     }
@@ -161,6 +161,8 @@ class DataBaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = sInstance.getWritableDatabase(); //get database
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + Cons.ACTIVIDAD + "'");
         db.execSQL("DELETE FROM " + Cons.ACTIVIDAD); //delete all rows in a table
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + Cons.PRIORIDAD + "'");
+        db.execSQL("DELETE FROM " + Cons.PRIORIDAD); //delete all rows in a table
         db.close();
     }
     /*public Cursor findData(String id){

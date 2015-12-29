@@ -20,24 +20,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends AppCompatActivity {
 
-    DataBaseHelper myDB;
-    SQLiteDatabase db;
+    DataBaseHelper dataBaseHelper;
     EditText edit_name, edit_id, edit_inicio, edit_termino;
     Button btn_addData, btn_viewdata, btn_reset, btn_delete, btn_newact;
-    Actividad actividad;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myDB = DataBaseHelper.getInstance(this);
-
+        dataBaseHelper = DataBaseHelper.getInstance(this);
         edit_id = (EditText) findViewById(R.id.editId);
         edit_name = (EditText) findViewById(R.id.editNombre);
         edit_inicio = (EditText) findViewById(R.id.editInicio);
@@ -52,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
         dropTable();
         DeleteData();
         VerPrioridad();
-        //myDB =new DatabaseHelper(this);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public void DeleteData() {
@@ -63,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Integer deletedRows = actividad.BorrarActividad(myDB, edit_id.getText().toString());
+                        Integer deletedRows = Actividad.BorrarActividad(dataBaseHelper, edit_id.getText().toString());
                         if (deletedRows > 0)
                             Toast.makeText(MainActivity.this, "Actividad Borrada", Toast.LENGTH_LONG).show();
                         else
@@ -78,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res = actividad.BuscarTodosActividades(myDB);
+                        Cursor res = Actividad.BuscarTodosActividades(dataBaseHelper);
                         if (res.getCount() == 0) {
                             showMessage("Aviso", "No hay actividades");
                             return;
@@ -106,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // db.delete(String tableName, String whereClause, String[] whereArgs);
                         // If whereClause is null, it will delete all rows.
-                        myDB.dropTable();
+                        dataBaseHelper.dropTable();
                         //db.delete(DatabaseHelper.TAB, null, null);
                     }
                         /*if (res.getCount() == 0) {
@@ -130,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = actividad.InsertarActividad(myDB, edit_name.getText().toString(),
+                        boolean isInserted = Actividad.InsertarActividad(dataBaseHelper, edit_name.getText().toString(),
                                 edit_inicio.getText().toString(),
                                 edit_termino.getText().toString(), false, false);
                         if (isInserted == true)
@@ -150,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                        Intent intent = new Intent(MainActivity.this, MostrarActividad.class);
                         startActivity(intent);
 
                     }

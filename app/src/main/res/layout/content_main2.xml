@@ -170,15 +170,6 @@
         android:layout_alignLeft="@+id/editIdAct"
         android:layout_alignStart="@+id/editIdAct" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Encontrar Actividad"
-        android:id="@+id/button_find"
-        android:layout_below="@+id/button_addprio"
-        android:layout_alignLeft="@+id/editNameAct"
-        android:layout_alignStart="@+id/editNameAct" />
-
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -195,8 +186,8 @@
         android:text="Rating"
         android:id="@+id/textView_rating"
         android:textColor="#ffffff"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignRight="@+id/button_find"
-        android:layout_alignEnd="@+id/button_find" />
+        android:layout_above="@+id/button_viewall"
+        android:layout_toLeftOf="@+id/button_viewall"
+        android:layout_toStartOf="@+id/button_viewall" />
 
 </RelativeLayout>

@@ -30,7 +30,7 @@ public class Cons {
 
     //Tabla Actividad
     public static final String ACTIVIDAD="Actividad";
-    public static final String ACTIVIDAD_ID="ActividadId";
+    public static final String ACTIVIDAD_ID="_id";
     public static final String NOMBRE_ACTIVIDAD="Nombre";
     public static final String INICIO="Inicio";
     public static final String TERMINO="Termino";
