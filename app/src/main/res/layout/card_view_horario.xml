@@ -1,0 +1,58 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="2dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="#000000">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+            <TextView
+                android:id="@+id/numhorario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="TEST"
+                android:textColor="#ffffff"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffff"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@+id/numhorario"
+                android:layout_toLeftOf="@+id/ratingBar"
+                android:layout_centerVertical="true" />
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingBar"
+                android:background="@null"
+                android:numStars="5"
+                android:layout_gravity="right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:rating="3"
+                android:isIndicator="true"
+                style="?android:attr/ratingBarStyleSmall"
+                android:clickable="false"
+                android:focusableInTouchMode="false"
+                android:focusable="false"/>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

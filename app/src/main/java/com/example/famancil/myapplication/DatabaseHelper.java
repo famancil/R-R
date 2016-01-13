@@ -40,7 +40,7 @@ class DataBaseHelper extends SQLiteOpenHelper{
             + ")";*/
 
     private DataBaseHelper(Context context) {
-        super(context, Cons.DATABASE_NAME, null,5);
+        super(context, Cons.DATABASE_NAME, null,6);
         SQLiteDatabase db = this.getWritableDatabase();
         //context.deleteDatabase(DATABASE_NAME);
     }
@@ -76,10 +76,7 @@ class DataBaseHelper extends SQLiteOpenHelper{
         db.execSQL("CREATE TABLE " + Cons.HORARIO + " ( " +
                 Cons.HORARIO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Cons.DIA + " INTEGER, " +
-                Cons.FECHA + " DATE, " +
-                Cons.DESCRIPCION + " TEXT, " +
-                Cons.USUARIO_ID_HORARIO + " INTEGER, "  +
-                "FOREIGN KEY ("+ Cons.USUARIO_ID_HORARIO + ") REFERENCES " + Cons.USUARIO +" ( " + Cons.USUARIO_ID + " ));");
+                Cons.FECHA + " DATE);");
         db.execSQL("CREATE TABLE " + Cons.ACTIVIDAD + " (" +
                 Cons.ACTIVIDAD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Cons.NOMBRE_ACTIVIDAD + " TEXT NOT NULL UNIQUE, " +

@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     DataBaseHelper dataBaseHelper;
     EditText edit_name, edit_id, edit_inicio, edit_termino;
     Button btn_addData, btn_viewdata, btn_reset, btn_delete, btn_newact;
+    private Horario Horario;
+    private int inicio;
 
 
     @Override
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dataBaseHelper = DataBaseHelper.getInstance(this);
+        Horario = new Horario(getIntent().getIntExtra("HorarioDia", -1), getIntent().getStringExtra("HorarioFecha"));
+        Horario = Horario.RevisarHorario(dataBaseHelper, getIntent().getIntExtra("ActividadInicio", -1));
         edit_id = (EditText) findViewById(R.id.editId);
         edit_name = (EditText) findViewById(R.id.editNombre);
         edit_inicio = (EditText) findViewById(R.id.editInicio);
@@ -39,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         btn_reset = (Button) findViewById(R.id.button_reset);
         btn_delete = (Button) findViewById(R.id.button_delete);
         btn_newact = (Button) findViewById(R.id.button_act);
+        edit_inicio.setText(Horario.getInicioHorario());
+        edit_termino.setText(Horario.getTerminoHorario());
+        edit_inicio.setEnabled(false);
+        edit_termino.setEnabled(false);
         addData();
         viewData();
         dropTable();
@@ -73,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                         StringBuffer buffer = new StringBuffer();
                         while (res.moveToNext()) {
-                            buffer.append("Id :" + res.getString(0) + "\n");
-                            buffer.append("Nombre :" + res.getString(1) + "\n");
-                            buffer.append("Inicio :" + res.getString(2) + "\n");
-                            buffer.append("Termino :" + res.getString(3) + "\n");
-                            buffer.append("Cumplido :" + res.getString(4) + "\n");
-                            buffer.append("Invariable :" + res.getString(5) + "\n");
+                            buffer.append("Id: " + res.getString(0) + "\n");
+                            buffer.append("Nombre: " + res.getString(1) + "\n");
+                            buffer.append("Inicio: " + res.getString(2) + "\n");
+                            buffer.append("Termino: " + res.getString(3) + "\n");
+                            buffer.append("Cumplido: " + res.getString(4) + "\n");
+                            buffer.append("Invariable: " + res.getString(5) + "\n");
                         }
                         showMessage("Actividad", buffer.toString());
                     }
@@ -118,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int ActividadId;
                         boolean isInserted = Actividad.InsertarActividad(dataBaseHelper, edit_name.getText().toString(),
                                 edit_inicio.getText().toString(),
                                 edit_termino.getText().toString(), false, false);
@@ -125,9 +134,13 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Actividad Ingresada", Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(MainActivity.this, "Actividad Rechazada", Toast.LENGTH_LONG).show();
-                        edit_name.setText("");
-                        edit_inicio.setText("");
-                        edit_termino.setText("");
+                        ActividadId = Actividad.BuscarActividadIdUltimo(dataBaseHelper);
+                        ActividadHorario AcHo = new ActividadHorario(Horario.getId(), ActividadId);
+                        if(AcHo.InsertarActividadHorario(dataBaseHelper))
+                            Toast.makeText(MainActivity.this, "ActividadHorario Ingresada", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MainActivity.this, "ActividadHorario Rechazada", Toast.LENGTH_LONG).show();
+                        MainActivity.this.finish();
                     }
                 }
         );
