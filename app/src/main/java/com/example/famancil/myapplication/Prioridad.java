@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class Prioridad {
 
-    public static boolean InsertarPrioridad(DataBaseHelper DBUsuario,String grado,String activity_id) {
+    public static boolean InsertarPrioridad(DataBaseHelper DBUsuario,float grado,String activity_id) {
         SQLiteDatabase db=DBUsuario.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Cons.ACTIVIDAD_ID_PRIORIDAD, activity_id);
@@ -27,10 +27,28 @@ public class Prioridad {
         return res;
     }
 
+    public static Cursor BuscarPrioridadPorActividad(DataBaseHelper DBUsuario,String activity_id) {
+        SQLiteDatabase db = DBUsuario.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from " + Cons.PRIORIDAD + " where " + Cons.ACTIVIDAD_ID_PRIORIDAD + "='" + activity_id + "'" , null);
+        return res;
+    }
+
     public static Cursor BuscarTodasPrioridades(DataBaseHelper DBUsuario) {
         SQLiteDatabase db = DBUsuario.getReadableDatabase();
         Cursor res = db.rawQuery("select * from " + Cons.PRIORIDAD, null);
         return res;
+    }
+
+    public static boolean ActualizarPrioridad(DataBaseHelper DBUsuario,String id,float grado,String activity_id) {
+        SQLiteDatabase db=DBUsuario.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Cons.ACTIVIDAD_ID_PRIORIDAD, activity_id);
+        contentValues.put(Cons.GRADO, grado);
+        long result = db.update(Cons.PRIORIDAD,contentValues,"ActividadId="+activity_id,null);
+        if(result==-1)
+            return false;
+        else
+            return true;
     }
 
     public static Integer BorrarPrioridad(DataBaseHelper DBUsuario,String id) {

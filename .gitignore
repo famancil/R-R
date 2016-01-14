@@ -29,3 +29,5 @@ build/intermediates/dex-cache/cache.xml
 local.properties
 local.properties
 local.properties
+local.properties
+app/app.iml

@@ -43,8 +43,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ratingBar"
                 android:background="@null"
+                android:maxWidth="20dp"
+                android:minWidth="20dp"
                 android:numStars="5"
-                android:layout_gravity="right"
+                android:stepSize="1"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:rating="0"
@@ -52,7 +55,8 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:clickable="false"
                 android:focusableInTouchMode="false"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

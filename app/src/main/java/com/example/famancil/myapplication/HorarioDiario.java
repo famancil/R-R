@@ -8,6 +8,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.annotation.SuppressLint;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,8 +19,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,6 +37,7 @@ public class HorarioDiario extends AppCompatActivity {
     static int PFecha = 0;
     private String Fecha;
     private Calendar calendar;
+    private RatingBar ratingBar;
     private static Activity Activity;
     private RecyclerView mRecyclerView;
 
@@ -49,6 +55,7 @@ public class HorarioDiario extends AppCompatActivity {
         calendar = Calendar.getInstance();
         setFecha();
         setHorario();
+
     }
 
     @Override
@@ -60,7 +67,7 @@ public class HorarioDiario extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new HorarioRecyclerViewAdapter(Horario, Actividades, this);
+        mAdapter = new HorarioRecyclerViewAdapter(Horario, Actividades, this,DataBaseHelper);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -93,6 +100,7 @@ public class HorarioDiario extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 DataBaseHelper.deleteTableActivity();
+                onResume();
             }
         });
 
@@ -110,8 +118,10 @@ public class HorarioDiario extends AppCompatActivity {
 
     private void RellenarActividades()
     {
-        int i, j;
+        int i, j,Id;
         boolean encontrado;
+        float rating;
+        String titulo=null;
         Horario hor;
         DataBaseHelper = DataBaseHelper.getInstance(this);
         hor = Horario.BuscarHorario(DataBaseHelper, Fecha, calendar.get(calendar.DAY_OF_WEEK));
@@ -120,6 +130,7 @@ public class HorarioDiario extends AppCompatActivity {
             Horario.IngresarHorario(DataBaseHelper);
             hor = Horario.BuscarHorario(DataBaseHelper, Fecha, calendar.get(calendar.DAY_OF_WEEK));
         }
+        StringBuffer buffer = new StringBuffer(),buffer1=new StringBuffer();
         ActividadHorario ac = null;
         ArrayList<ActividadHorario> ActividadHorario = ac.BuscarActividadHorario(DataBaseHelper, hor.getId());
         Actividades = new ArrayList<>();
@@ -136,13 +147,16 @@ public class HorarioDiario extends AppCompatActivity {
             encontrado = false;
             for(j = 0; j < actividads.size(); j++)
             {
-                if(actividads.get(j).getInicio() == i)
-                {
+            try {
+                if (actividads.get(j).getInicio() == i) {
                     actividads.get(j).setHorario(i);
                     Actividades.add(actividads.get(j));
                     encontrado = true;
                     break;
                 }
+            }catch (NullPointerException e){
+                continue;
+            }
             }
             if(!encontrado)
             {
@@ -192,13 +206,13 @@ public class HorarioDiario extends AppCompatActivity {
         Intent intent = new Intent(this, Estadisticas.class);
         startActivity(intent);
     }
-
+/*
     public void ClickButtonPrioridadHorarioDiario(View view)
     {
         Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
     }
-
+*/
     public void ClickButtonDatosPersonales(View view)
     {
         Intent intent = new Intent(this, DatosPersonales.class);

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     DataBaseHelper dataBaseHelper;
     EditText edit_name, edit_id, edit_inicio, edit_termino;
-    Button btn_addData, btn_viewdata, btn_reset, btn_delete, btn_newact;
+    Button btn_addData, btn_viewdata, btn_delete;//btn_reset;
     private Horario Horario;
     private int inicio;
 
@@ -40,18 +40,17 @@ public class MainActivity extends AppCompatActivity {
         edit_termino = (EditText) findViewById(R.id.editTermino);
         btn_addData = (Button) findViewById(R.id.btnAdd);
         btn_viewdata = (Button) findViewById(R.id.button_viewall);
-        btn_reset = (Button) findViewById(R.id.button_reset);
+        //btn_reset = (Button) findViewById(R.id.button_reset);
         btn_delete = (Button) findViewById(R.id.button_delete);
-        btn_newact = (Button) findViewById(R.id.button_act);
+        //btn_newact = (Button) findViewById(R.id.button_act);
         edit_inicio.setText(Horario.getInicioHorario());
         edit_termino.setText(Horario.getTerminoHorario());
         edit_inicio.setEnabled(false);
         edit_termino.setEnabled(false);
         addData();
         viewData();
-        dropTable();
+        //dropTable();
         DeleteData();
-        VerPrioridad();
     }
 
     public void DeleteData() {
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void dropTable() {
+    /*public void dropTable() {
         btn_reset.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -116,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
                             buffer.append("Grade :" + res.getString(2) + "\n");
                         }
                         showMessage("Data", buffer.toString());
-                    }*/
+                    }
                 }
         );
-    }
+    }*/
 
     public void addData() {
         btn_addData.setOnClickListener(
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                         boolean isInserted = Actividad.InsertarActividad(dataBaseHelper, edit_name.getText().toString(),
                                 edit_inicio.getText().toString(),
                                 edit_termino.getText().toString(), false, false);
-                        if (isInserted == true)
+                        if (isInserted)
                             Toast.makeText(MainActivity.this, "Actividad Ingresada", Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(MainActivity.this, "Actividad Rechazada", Toast.LENGTH_LONG).show();
@@ -152,18 +151,6 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void VerPrioridad() {
-        btn_newact.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, MostrarActividad.class);
-                        startActivity(intent);
-
-                    }
-                }
-        );
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
