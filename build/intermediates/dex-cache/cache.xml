@@ -1,2 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_a3c5ef8efc607844db933c611e8c15bfbaff3ac9.jar" />
+    </item>
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_fa77d009da916e524aef4c032f6be364394f6dc3.jar" />
+    </item>
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_09e776f1f4324727352b65a1ad7f12206632f824.jar" />
+    </item>
+    <item
+        jar="/home/famancil/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_67b3cbcc9459a6db347723a11cbfb1c896be5080.jar" />
+    </item>
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_9e79cd89fe02b570f1a585b1593fa33ca8e552dd.jar" />
+    </item>
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.1.0_15527131354b185973df02d06394a9dc2b0d794f.jar" />
+    </item>
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_d6557cf07ea7d8df5af41ddc36d5465a6d550bda.jar" />
+    </item>
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.1.0_253e3924de9a206c37781698e17c132c8eed29e5.jar" />
+    </item>
+    <item
+        jar="/home/famancil/R-R (Martin)/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="/home/famancil/R-R (Martin)/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.0.1_24f21153cc0f0a83d829a4c14498018dca899e6b.jar" />
+    </item>
+
+</items>

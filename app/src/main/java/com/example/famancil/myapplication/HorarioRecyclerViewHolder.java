@@ -41,7 +41,7 @@ public class HorarioRecyclerViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Activity, "Prioridad Actualizada", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Activity, "Prioridad Actualizada", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(Activity, MainActivity.class);
                 i.putExtra("HorarioDia", Horario.getDia());
                 i.putExtra("HorarioFecha", Horario.getFecha());
