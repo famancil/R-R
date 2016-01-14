@@ -17,6 +17,7 @@ public class Actividad {
     private boolean Invariable;
 
     public Actividad(int horario) {
+        this.Id = -1;
         Nombre = "";
         this.horario = horario;
     }
@@ -33,6 +34,7 @@ public class Actividad {
 
     public Actividad(String Nombre, String Inicio, String Termino, boolean Cumplido, boolean Invariable)
     {
+        this.Id = -1;
         this.Nombre = Nombre;
         this.Inicio = Inicio;
         this.Termino = Termino;
@@ -91,6 +93,8 @@ public class Actividad {
         SQLiteDatabase db = DBUsuario.getWritableDatabase();
         return db.delete(Cons.ACTIVIDAD,"ID = ?",new String[]{id});
     }
+
+    public int getId() { return this.Id; }
 
     public int getHorario() { return this.horario; }
 

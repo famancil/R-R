@@ -24,3 +24,8 @@ app/app.iml
 .idea/compiler.xml
 .idea/copyright/profiles_settings.xml
 local.properties
+local.properties
+build/intermediates/dex-cache/cache.xml
+local.properties
+local.properties
+local.properties

@@ -140,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "ActividadHorario Ingresada", Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(MainActivity.this, "ActividadHorario Rechazada", Toast.LENGTH_LONG).show();
+                        isInserted = Prioridad.InsertarPrioridad(dataBaseHelper, String.valueOf(3),
+                                String.valueOf(ActividadId));
+                        if (isInserted == true)
+                            Toast.makeText(MainActivity.this, "Prioridad Aceptada", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MainActivity.this, "Prioridad Rechazada", Toast.LENGTH_LONG).show();
                         MainActivity.this.finish();
                     }
                 }
