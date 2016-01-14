@@ -15,6 +15,7 @@ public class Actividad {
     private String Termino;
     private boolean Cumplido;
     private boolean Invariable;
+    private float ratingPrioridad;
 
     public Actividad(int horario) {
         Nombre = "";
@@ -94,7 +95,16 @@ public class Actividad {
 
     public int getHorario() { return this.horario; }
 
+    public int getId() { return this.Id; }
+
     public int getInicio() { return Integer.parseInt(Inicio); }
+
+    public void setRatingStar(float ratingPrioridad) {
+        this.ratingPrioridad = ratingPrioridad;
+    }
+    public float getRatingStar() {
+        return ratingPrioridad;
+    }
 
     public void setHorario(int horario) { this.horario = horario; }
 

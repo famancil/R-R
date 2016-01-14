@@ -40,7 +40,7 @@ class DataBaseHelper extends SQLiteOpenHelper{
             + ")";*/
 
     private DataBaseHelper(Context context) {
-        super(context, Cons.DATABASE_NAME, null,6);
+        super(context, Cons.DATABASE_NAME, null,16);
         SQLiteDatabase db = this.getWritableDatabase();
         //context.deleteDatabase(DATABASE_NAME);
     }

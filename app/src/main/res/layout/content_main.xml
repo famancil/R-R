@@ -122,19 +122,23 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:id="@+id/editNombre"
-        android:layout_alignTop="@+id/textView3"
         android:background="#ffffff"
-        android:layout_toRightOf="@+id/btnAdd" />
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignLeft="@+id/editId"
+        android:layout_alignStart="@+id/editId"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <EditText
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:id="@+id/editInicio"
-        android:layout_above="@+id/btnAdd"
         android:background="#ffffff"
-        android:layout_toRightOf="@+id/btnAdd"
-        android:layout_alignRight="@+id/editNombre"
-        android:layout_alignEnd="@+id/editNombre" />
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignLeft="@+id/editNombre"
+        android:layout_alignStart="@+id/editNombre"
+        android:layout_alignRight="@+id/button_delete"
+        android:layout_alignEnd="@+id/button_delete" />
 
     <Button
         android:layout_width="wrap_content"
@@ -144,26 +148,26 @@
         android:layout_marginTop="84dp"
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/button_act"
-        android:layout_alignEnd="@+id/button_act" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ver Todo"
         android:id="@+id/button_viewall"
-        android:layout_alignTop="@+id/btnAdd"
+        android:layout_above="@+id/button_delete"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="53dp"
+        android:layout_marginEnd="53dp" />
 
-    <Button
+    <!--<Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ResetDB"
         android:id="@+id/button_reset"
         android:layout_alignTop="@+id/button_viewall"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
 
     <Button
         android:layout_width="wrap_content"
@@ -171,8 +175,8 @@
         android:text="Borrar Actividad"
         android:id="@+id/button_delete"
         android:layout_below="@+id/btnAdd"
-        android:layout_alignLeft="@+id/button_reset"
-        android:layout_alignStart="@+id/button_reset" />
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -192,10 +196,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/editId"
         android:background="#ffffff"
+        android:layout_marginTop="33dp"
         android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/editNombre"
-        android:layout_alignStart="@+id/editNombre"
-        android:layout_marginTop="32dp" />
+        android:layout_alignLeft="@+id/button_delete"
+        android:layout_alignStart="@+id/button_delete"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -214,18 +220,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTermino"
         android:background="#ffffff"
-        android:layout_marginBottom="30dp"
-        android:layout_above="@+id/button_viewall"
-        android:layout_toRightOf="@+id/btnAdd"
-        android:layout_toEndOf="@+id/btnAdd" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ver Prioridad"
-        android:id="@+id/button_act"
-        android:layout_below="@+id/btnAdd"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/editInicio"
+        android:layout_alignStart="@+id/editInicio"
+        android:layout_marginTop="29dp"
+        android:layout_alignRight="@+id/editInicio"
+        android:layout_alignEnd="@+id/editInicio" />
 
 </RelativeLayout>
